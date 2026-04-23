@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
             preloader.style.opacity = '0';
             preloader.style.visibility = 'hidden';
             
-            // Trigger Hero Animation after preloader
-            document.querySelector('.hero').classList.add('active');
+            // Trigger Hero Content Animations after preloader
             setTimeout(() => {
                 const subtitle = document.querySelector('.hero-subtitle');
                 if (subtitle) {

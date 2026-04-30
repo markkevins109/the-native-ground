@@ -668,3 +668,7 @@ footer {
     .btn { width: 100%; }
     .stat-number { font-size: 3rem; }
 }
+
+#platform .grid-2 {
+    grid-template-columns: 1.2fr 1fr;
+}

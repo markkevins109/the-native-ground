@@ -105,7 +105,7 @@ nav {
     padding: 1.4rem 5%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     z-index: 1000;
     transition: var(--transition);
 }
@@ -125,12 +125,14 @@ nav.scrolled {
     color: var(--white);
     text-decoration: none;
     letter-spacing: 3px;
+    line-height: 1.1;
     text-transform: uppercase;
 }
 
 .nav-links {
     display: flex;
     gap: 2rem;
+    margin-top: 0.6rem;
     align-items: center;
 }
 

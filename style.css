@@ -97,11 +97,12 @@ p {
 @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent) } }
 
 /* --- Navigation --- */
+/* --- Navigation (Refined & Compact) --- */
 nav {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 2.5rem 6%;
+    padding: 1.4rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -110,45 +111,40 @@ nav {
 }
 
 nav.scrolled {
-    padding: 1.2rem 6%;
-    background: rgba(10, 17, 13, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 0.75rem 5%;
+    background: rgba(10, 17, 13, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .logo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     font-weight: 500;
     color: var(--white);
     text-decoration: none;
-    letter-spacing: 4px;
+    letter-spacing: 3px;
     text-transform: uppercase;
 }
 
 .nav-links {
     display: flex;
-    gap: 3.5rem;
+    gap: 2rem;
     align-items: center;
 }
 
 .nav-links a {
     color: var(--white);
     text-decoration: none;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     position: relative;
-    padding: 0.5rem 0;
-    opacity: 0.8;
+    padding: 0.3rem 0;
+    opacity: 0.85;
     transition: var(--transition);
-}
-
-.nav-links a:hover {
-    opacity: 1;
-    color: var(--accent);
 }
 
 /* Mobile Toggle */
@@ -215,7 +211,7 @@ nav.scrolled {
     text-align: center;
     max-width: 1200px;
     padding: 0 5%;
-    margin-top: 5rem;
+    margin-top: 3rem;
 }
 
 .hero-subtitle {

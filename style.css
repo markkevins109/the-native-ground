@@ -3,17 +3,17 @@
 :root {
     --primary: #0A110D;
     --primary-light: #16241A;
-    --accent: #E1C16E;
+    --accent: #D9A05B;
     --accent-muted: #A8956A;
     --surface: #FCFBF8;
     --surface-alt: #F3F1EA;
-    --text: #111A14;
-    --text-muted: #546056;
+    --text: #0E1611;
+    --text-muted: #3D4A40;
     --white: #ffffff;
     --glass: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.08);
     --transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    --section-spacing: clamp(6rem, 12vw, 10rem);
+    --section-spacing: clamp(5rem, 12vw, 10rem);
 }
 
 * {
@@ -24,7 +24,7 @@
 
 html {
     scroll-behavior: smooth;
-    font-size: 16px;
+    font-size: 17px;
 }
 
 body {
@@ -36,7 +36,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 /* Subtle noise texture */
@@ -55,7 +55,7 @@ body::before {
 
 h1, h2, h3, .serif {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 /* Typography refinements */
@@ -84,18 +84,17 @@ p {
 
 .loader-logo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: var(--accent);
-    letter-spacing: 8px;
-    font-weight: 300;
-    text-transform: uppercase;
-    animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    letter-spacing: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--accent);
+    animation: typing 2s steps(15, end), blink-caret 0.75s step-end infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
+@keyframes typing { from { width: 0 } to { width: 100% } }
+@keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent) } }
 
 /* --- Navigation --- */
 nav {
@@ -652,16 +651,18 @@ footer {
 }
 
 @media (max-width: 768px) {
-    :root { --section-spacing: 5rem; }
+    :root { --section-spacing: 4rem; }
     section { padding: var(--section-spacing) 6%; }
     .hero-title { font-size: 3rem; }
     .hero-subtitle { letter-spacing: 5px; font-size: 0.75rem; }
-    .section-title-wrap { margin-bottom: 4rem; }
+    .section-title-wrap { margin-bottom: 3rem; }
     .section-title-wrap h2 { font-size: 2.2rem; }
     .grid-2 { gap: 3rem; }
     .card { padding: 2.5rem; }
     .tier-card { padding: 3rem 2rem; }
     .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .parallax-break { background-attachment: scroll; height: 50vh; }
+    .img-container { order: -1; margin-bottom: 1rem; }
 }
 
 @media (max-width: 480px) {

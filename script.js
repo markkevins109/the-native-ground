@@ -1,34 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Preloader
-    const preloader = document.getElementById('preloader');
     window.addEventListener('load', () => {
+        // Trigger Hero Content Animations
         setTimeout(() => {
-            preloader.style.opacity = '0';
-            preloader.style.visibility = 'hidden';
-            
-            // Trigger Hero Content Animations after preloader
-            setTimeout(() => {
-                const subtitle = document.querySelector('.hero-subtitle');
-                if (subtitle) {
-                    subtitle.style.opacity = '1';
-                    subtitle.style.transform = 'translateY(0)';
-                }
-            }, 300);
-            setTimeout(() => {
-                const title = document.querySelector('.hero-title');
-                if (title) {
-                    title.style.opacity = '1';
-                    title.style.transform = 'translateY(0)';
-                }
-            }, 600);
-            setTimeout(() => {
-                const desc = document.querySelector('.hero-desc');
-                if (desc) {
-                    desc.style.opacity = '1';
-                    desc.style.transform = 'translateY(0)';
-                }
-            }, 900);
-        }, 1500);
+            const title = document.querySelector('.hero-title');
+            if (title) {
+                title.style.opacity = '1';
+                title.style.transform = 'translateY(0)';
+            }
+        }, 100);
+        setTimeout(() => {
+            const subtitle = document.querySelector('.hero-subtitle');
+            if (subtitle) {
+                subtitle.style.opacity = '1';
+                subtitle.style.transform = 'translateY(0)';
+            }
+        }, 300);
+        setTimeout(() => {
+            const desc = document.querySelector('.hero-desc');
+            if (desc) {
+                desc.style.opacity = '1';
+                desc.style.transform = 'translateY(0)';
+            }
+        }, 500);
     });
 
     // Navbar Scroll Effect

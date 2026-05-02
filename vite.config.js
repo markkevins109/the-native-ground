@@ -8,6 +8,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         thomas: resolve(__dirname, 'profile-thomas.html'),
         salim: resolve(__dirname, 'profile-salim.html'),
+        george: resolve(__dirname, 'profile-george.html'),
         anil: resolve(__dirname, 'profile-anil.html'),
         varughese: resolve(__dirname, 'profile-varughese.html'),
         shiva: resolve(__dirname, 'profile-shiva.html'),

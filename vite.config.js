@@ -13,6 +13,7 @@ export default defineConfig({
         varughese: resolve(__dirname, 'profile-varughese.html'),
         shiva: resolve(__dirname, 'profile-shiva.html'),
         suhail: resolve(__dirname, 'profile-suhail.html'),
+        john: resolve(__dirname, 'profile-john.html'),
       }
     }
   }

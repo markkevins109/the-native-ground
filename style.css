@@ -229,12 +229,12 @@ nav.scrolled {
 }
 
 .hero-title {
-    font-size: clamp(2rem, 8vw, 6rem);
+    font-size: clamp(1.5rem, 5.5vw, 5.5rem);
     line-height: 1.1;
     margin-bottom: 2.5rem;
-    letter-spacing: 0.3em; /* Balanced stretching */
+    letter-spacing: 0.25em; /* Balanced stretching */
     font-weight: 400;
-    text-indent: 0.3em; /* Centering fix */
+    text-indent: 0.25em; /* Centering fix */
     white-space: nowrap;
     display: block; /* Changed from inline-block for better centering */
     width: 100%;
@@ -697,7 +697,7 @@ footer > div {
 }
 
 @media (max-width: 480px) {
-    .hero-title { font-size: 2.2rem; }
+    .hero-title { font-size: clamp(1.2rem, 8vw, 2rem); letter-spacing: 0.15em; text-indent: 0.15em; }
     .hero-subtitle { font-size: 0.65rem; }
     .btn { width: 100%; padding: 1.2rem 1.5rem; }
     .stat-number { font-size: 2.8rem; }

@@ -21,23 +21,36 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html {
     scroll-behavior: smooth;
-    font-size: 17px;
+    font-size: 16px; /* Base font size */
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
     font-family: 'Inter', sans-serif;
     color: var(--text);
     background-color: var(--surface);
-    line-height: 1.8;
+    line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative;
     font-weight: 400;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 /* Subtle noise texture */
@@ -52,6 +65,34 @@ body::before {
     opacity: 0.15;
     pointer-events: none;
     z-index: 9999;
+}
+
+/* Custom Selection */
+::selection {
+    background-color: var(--accent);
+    color: var(--primary);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--primary);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--accent-muted);
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* Better Focus States */
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
 }
 
 h1, h2, h3, .serif {
@@ -101,7 +142,7 @@ nav.scrolled {
 }
 
 .nav-links {
-    display: none;
+    display: flex;
     gap: 2.5rem;
     align-items: center;
 }
@@ -124,41 +165,14 @@ nav.scrolled {
     color: var(--accent);
 }
 
-.nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 100%;
-    height: 100vh;
-    background: rgba(5, 8, 6, 0.98);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2.5rem;
-    transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    z-index: 1000;
-    display: flex;
-}
-
-.nav-links.active {
-    right: 0;
-}
-
-.nav-links a {
-    font-size: 1.5rem;
-    color: var(--white);
-}
-
-/* Mobile Toggle */
 .menu-toggle {
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 6px;
     cursor: pointer;
     z-index: 1001;
 }
+
 .menu-toggle span {
     display: block;
     width: 35px;
@@ -166,9 +180,41 @@ nav.scrolled {
     background: var(--white);
     transition: var(--transition);
 }
-.menu-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-.menu-toggle.active span:nth-child(2) { opacity: 0; }
-.menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+@media (max-width: 1024px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(5, 8, 6, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.5rem;
+    }
+
+    .menu-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+}
 
 /* --- Hero --- */
 .hero {
@@ -229,13 +275,13 @@ nav.scrolled {
 }
 
 .hero-title {
-    font-size: clamp(2rem, 8vw, 6rem);
+    font-size: clamp(2rem, 10vw, 6rem);
     line-height: 1.1;
     margin-bottom: 2.5rem;
     letter-spacing: 0.3em; /* Balanced stretching */
     font-weight: 400;
     text-indent: 0; /* Centering fix removed as per user request */
-    white-space: nowrap;
+    white-space: normal; /* Allow wrap on very small screens */
     display: inline-block;
     max-width: 100%;
     text-transform: uppercase;
@@ -660,8 +706,6 @@ footer > div {
     .footer-grid { grid-template-columns: 1fr; gap: 4rem; }
     section { padding: 6rem 8%; }
     .tier-card.featured { transform: scale(1); }
-    
-    .menu-toggle { display: flex; }
 }
 
 @media (max-width: 768px) {
@@ -695,14 +739,23 @@ footer > div {
 }
 
 @media (max-width: 480px) {
-    .hero-title { font-size: 2.2rem; }
-    .hero-subtitle { font-size: 0.65rem; }
+    .hero-title { font-size: clamp(1.8rem, 12vw, 2.5rem); letter-spacing: 0.15em; }
+    .hero-subtitle { font-size: 0.65rem; letter-spacing: 2px; }
     .btn { width: 100%; padding: 1.2rem 1.5rem; }
     .stat-number { font-size: 2.8rem; }
     .logo { font-size: 1.2rem; letter-spacing: 2px; }
     
-    section { padding: 3.5rem 6%; }
+    section { padding: 4rem 6%; }
     .card h3 { font-size: 1.5rem; }
+    
+    #ecological-damage .grid-2, #crisis .grid-2 {
+        gap: 2rem;
+    }
+
+    #land h2.serif {
+        letter-spacing: 4px !important;
+        font-size: 2.5rem !important;
+    }
 }
 
 /* --- Profile Page Enhancements --- */

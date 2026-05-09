@@ -84,7 +84,7 @@ nav {
 
 nav.scrolled {
     padding: 0.8rem 6%;
-    background: rgba(10, 17, 13, 0.9);
+    background: transparent;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255,255,255,0.05);

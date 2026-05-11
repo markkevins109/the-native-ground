@@ -172,7 +172,8 @@ nav.scrolled {
 
 /* --- Hero --- */
 .hero {
-    height: 100vh;
+    min-height: 100vh;
+    height: 100dvh;
     width: 100%;
     position: relative;
     display: flex;
@@ -235,7 +236,6 @@ nav.scrolled {
     letter-spacing: 0.25em; /* Balanced stretching */
     font-weight: 400;
     text-indent: 0.25em; /* Centering fix */
-    white-space: nowrap;
     display: block; /* Changed from inline-block for better centering */
     width: 100%;
     text-align: center;
@@ -618,6 +618,25 @@ footer > div {
     border-radius: 50%;
 }
 
+/* --- Feature Rows --- */
+.feature-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.feature-col-title {
+    flex: 1;
+    min-width: 250px;
+}
+.feature-col-desc {
+    flex: 2;
+    min-width: 300px;
+    padding-left: 2rem;
+}
+
+
 /* --- Full-Width Parallax --- */
 .parallax-break {
     background: url('/landscape.png') center/cover no-repeat fixed;
@@ -694,10 +713,16 @@ footer > div {
     #strategic .card[style*="grid-column: span 2"] h3 {
         white-space: normal !important;
     }
+    
+    .feature-col-desc {
+        padding-left: 0;
+        padding-top: 1rem;
+        min-width: 100%;
+    }
 }
 
 @media (max-width: 480px) {
-    .hero-title { font-size: clamp(1.2rem, 8vw, 2rem); letter-spacing: 0.15em; text-indent: 0.15em; }
+    .hero-title { font-size: clamp(1.5rem, 10vw, 2.5rem); letter-spacing: 0.15em; text-indent: 0.15em; white-space: normal; }
     .hero-subtitle { font-size: 0.65rem; }
     .btn { width: 100%; padding: 1.2rem 1.5rem; }
     .stat-number { font-size: 2.8rem; }

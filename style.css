@@ -676,7 +676,7 @@ footer > div {
 
 /* --- Bird Collage --- */
 .bird-collage {
-    column-count: 3;
+    column-count: 6;
     column-gap: 1.5rem;
     margin-top: 4rem;
 }
@@ -736,7 +736,7 @@ footer > div {
 
 /* --- Responsive --- */
 @media (max-width: 1024px) {
-    .bird-collage { column-count: 2; }
+    .bird-collage { column-count: 4; }
     .grid-2 { grid-template-columns: 1fr; gap: 4rem; }
     .grid-3 { grid-template-columns: 1fr; gap: 2rem; }
     .footer-grid { grid-template-columns: 1fr; gap: 4rem; }
@@ -781,7 +781,7 @@ footer > div {
         min-width: 100%;
     }
     
-    .bird-collage { column-count: 1; }
+    .bird-collage { column-count: 2; }
     .bird-name-overlay {
         transform: translateY(0);
         background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);

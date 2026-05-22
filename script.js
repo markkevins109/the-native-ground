@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
     // Mobile Menu Toggle
     const mobileMenu = document.getElementById('mobile-menu');
     const navLinks = document.querySelector('.nav-links');
@@ -84,6 +85,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 mobileMenu.classList.remove('active');
                 navLinks.classList.remove('active');
             }
+        });
+    });
+
+    // ─── Universal Accordion ────────────────────────────────────────────────
+
+    // 1. Feature Rows — inject toggle button & wire up click
+    document.querySelectorAll('.feature-row').forEach(row => {
+        const titleCol = row.querySelector('.feature-col-title');
+        const descCol  = row.querySelector('.feature-col-desc');
+        if (!titleCol || !descCol) return;
+
+        // Inject the +/- button at far right of the row
+        const btn = document.createElement('span');
+        btn.className = 'accordion-toggle';
+        btn.textContent = '+';
+        row.appendChild(btn);
+
+        // Toggle on row click
+        row.addEventListener('click', () => {
+            const isOpen = row.classList.contains('accordion-open');
+            row.classList.toggle('accordion-open', !isOpen);
+            btn.textContent = isOpen ? '+' : '×';
+        });
+    });
+
+    // 2. Community Accordion Cards — already have markup, just wire up
+    document.querySelectorAll('.community-accordion').forEach(card => {
+        const btn = card.querySelector('.accordion-toggle');
+        if (!btn) return;
+
+        card.addEventListener('click', () => {
+            const isOpen = card.classList.contains('accordion-open');
+            card.classList.toggle('accordion-open', !isOpen);
+            btn.textContent = isOpen ? '+' : '×';
         });
     });
 });

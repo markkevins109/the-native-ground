@@ -645,18 +645,114 @@ footer > div {
 .feature-row {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    padding: 2.5rem 0;
+    align-items: flex-start;
+    padding: 2rem 0;
     border-bottom: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+}
+.feature-row:hover .accordion-toggle {
+    background: rgba(225, 193, 110, 0.2);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 .feature-col-title {
     flex: 1;
     min-width: 250px;
 }
+
+.feature-row > .accordion-toggle {
+    flex-shrink: 0;
+    align-self: center;
+    margin-left: auto;
+}
 .feature-col-desc {
     flex: 2;
     min-width: 300px;
     padding-left: 2rem;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
+                opacity 0.4s ease,
+                padding 0.4s ease;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.feature-row.accordion-open .feature-col-desc {
+    max-height: 1000px;
+    opacity: 1;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* The +/- toggle button */
+.accordion-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.3rem;
+    font-weight: 300;
+    line-height: 1;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+    user-select: none;
+    font-family: 'Inter', sans-serif;
+}
+.feature-row.accordion-open .accordion-toggle {
+    background: rgba(225, 193, 110, 0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: rotate(45deg);
+}
+
+/* --- Community Accordion Cards --- */
+.community-accordion {
+    margin-bottom: 1rem !important;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+.community-accordion:hover {
+    border-color: rgba(225, 193, 110, 0.2) !important;
+    background: rgba(255,255,255,0.05) !important;
+}
+.community-accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+.community-accordion-header h4 {
+    margin-bottom: 0 !important;
+    flex: 1;
+}
+.community-accordion-body {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
+                opacity 0.4s ease,
+                margin-top 0.3s ease;
+    margin-top: 0;
+}
+.community-accordion.accordion-open .community-accordion-body {
+    max-height: 600px;
+    opacity: 1;
+    margin-top: 1.25rem;
+}
+.community-accordion .accordion-toggle {
+    flex-shrink: 0;
+}
+.community-accordion.accordion-open .accordion-toggle {
+    background: rgba(225, 193, 110, 0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: rotate(45deg);
 }
 
 

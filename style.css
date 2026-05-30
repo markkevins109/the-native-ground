@@ -1135,10 +1135,10 @@ footer > div {
 
 .form-group input,
 .form-group select {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #121f18 !important;
+    border: 1px solid rgba(217, 160, 91, 0.3);
     padding: 0.9rem 1.2rem;
-    color: var(--white);
+    color: #ffffff !important;
     font-family: 'Inter', sans-serif;
     font-size: 0.95rem;
     border-radius: 4px;
@@ -1147,14 +1147,14 @@ footer > div {
 }
 
 .form-group select option {
-    background-color: var(--primary);
-    color: var(--white);
+    background-color: #0A110D;
+    color: #ffffff;
 }
 
 .form-group input:focus,
 .form-group select:focus {
     border-color: var(--accent);
-    background: rgba(255, 255, 255, 0.06);
+    background-color: #1a2b21 !important;
     box-shadow: 0 0 10px rgba(217, 160, 91, 0.15);
 }
 

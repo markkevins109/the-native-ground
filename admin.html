@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Native Ground | Community Administration</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="/flora.png">
+    
+    <style>
+        body {
+            background-color: var(--primary);
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        /* --- Auth Wrapper --- */
+        .auth-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            padding: 2rem;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(217, 160, 91, 0.25);
+            border-radius: 8px;
+            max-width: 450px;
+            width: 100%;
+            padding: 3.5rem 2.5rem;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+        }
+
+        .auth-card input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.2rem;
+            color: var(--white);
+            font-size: 1.1rem;
+            text-align: center;
+            letter-spacing: 4px;
+            border-radius: 4px;
+            margin: 2rem 0;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .auth-card input:focus {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 15px rgba(217, 160, 91, 0.2);
+        }
+
+        .error-msg {
+            color: #e07a5f;
+            font-size: 0.9rem;
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        /* --- Dashboard Wrapper --- */
+        .dashboard-wrapper {
+            display: none;
+            padding: 8rem 6% 4rem;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* --- Stats Grid --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.8rem;
+            border-radius: 6px;
+            transition: border-color 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(217, 160, 91, 0.2);
+        }
+
+        .stat-card span {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card strong {
+            font-size: 2.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--white);
+        }
+
+        /* --- Controls Section --- */
+        .dashboard-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 1rem;
+            flex-grow: 1;
+            max-width: 700px;
+        }
+
+        .search-filters input,
+        .search-filters select {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            padding: 0.8rem 1.2rem;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-filters input {
+            flex-grow: 1;
+        }
+
+        .search-filters input:focus,
+        .search-filters select:focus {
+            border-color: var(--accent);
+        }
+
+        .search-filters select option {
+            background-color: var(--primary);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-small {
+            padding: 0.8rem 1.5rem !important;
+            font-size: 0.7rem !important;
+            letter-spacing: 1px !important;
+        }
+
+        /* --- Data Table --- */
+        .table-container {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            overflow-x: auto;
+            margin-bottom: 4rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+            min-width: 900px;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.85);
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+            color: var(--white);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-volunteer { background: rgba(54, 162, 235, 0.15); color: #5dade2; border: 1px solid rgba(54, 162, 235, 0.25); }
+        .badge-partner { background: rgba(255, 206, 86, 0.15); color: #f4d03f; border: 1px solid rgba(255, 206, 86, 0.25); }
+        .badge-finance { background: rgba(75, 192, 192, 0.15); color: #58d68d; border: 1px solid rgba(75, 192, 192, 0.25); }
+
+        .btn-delete {
+            background: transparent;
+            border: 1px solid rgba(224, 122, 95, 0.3);
+            color: #e07a5f;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete:hover {
+            background: rgba(224, 122, 95, 0.1);
+            border-color: #e07a5f;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 4rem !important;
+            color: rgba(255, 255, 255, 0.4);
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-filters {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-filters {
+                flex-direction: column;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Back Navigation -->
+    <nav style="background: rgba(5, 8, 6, 0.95); padding: 1.2rem 6%;">
+        <a href="index.html" class="logo">NATIVE GROUND</a>
+        <div class="nav-links" style="display: flex; flex-direction: row; position: static; height: auto; background: transparent; width: auto; gap: 1.5rem;">
+            <a href="index.html#community">Return to Site</a>
+        </div>
+    </nav>
+
+    <!-- Authentication Area -->
+    <div class="auth-wrapper" id="auth-area">
+        <div class="auth-card">
+            <span class="section-tag" style="font-size: 0.75rem;">Security Portal</span>
+            <h2 class="serif text-accent" style="font-size: 2.2rem; margin-bottom: 0.5rem;">Admin Login</h2>
+            <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">Enter the administrative password to manage community submissions.</p>
+            
+            <input type="password" id="passcode-input" placeholder="••••••••" autocomplete="current-password">
+            <div class="error-msg" id="login-error">Incorrect passcode. Please try again.</div>
+            
+            <button class="btn" id="login-submit-btn" style="width: 100%; padding: 1.1rem; border-radius: 4px;">Verify Passcode</button>
+        </div>
+    </div>
+
+    <!-- Authorized Dashboard Area -->
+    <div class="dashboard-wrapper" id="dashboard-area">
+        
+        <div class="dashboard-header">
+            <div>
+                <span class="section-tag">Management Panel</span>
+                <h1 class="serif text-accent" style="font-size: 2.8rem; margin: 0 0 0.5rem 0; line-height: 1.1;">Community Hub Signups</h1>
+                <p style="color: rgba(255, 255, 255, 0.6); margin: 0;">Review, search, and export local applications for volunteering, partnerships, and financial support.</p>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-outline btn-small" id="btn-export-excel">Export to Excel</button>
+                <button class="btn btn-delete btn-small" id="btn-clear-all" style="border-radius: 0;">Clear Database</button>
+            </div>
+        </div>
+
+        <!-- Summary Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span>Total Applicants</span>
+                <strong id="stat-total">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Volunteers</span>
+                <strong id="stat-volunteers">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Partners</span>
+                <strong id="stat-partners">0</strong>
+            </div>
+            <div class="stat-card">
+                <span>Financial Supporters</span>
+                <strong id="stat-financial">0</strong>
+            </div>
+        </div>
+
+        <!-- Control Bar -->
+        <div class="dashboard-controls">
+            <div class="search-filters">
+                <input type="text" id="filter-search" placeholder="Search by name, email, city, country...">
+                <select id="filter-role">
+                    <option value="">All Tiers & Roles</option>
+                    <option value="Become a Volunteer">Volunteer Option</option>
+                    <option value="Partner with Native Ground">Partner Option</option>
+                    <option value="Offer financial support">Financial Option</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Data Table Container -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 18%;">Name</th>
+                        <th style="width: 15%;">Mobile No.</th>
+                        <th style="width: 20%;">Email Address</th>
+                        <th style="width: 18%;">Tier / Role</th>
+                        <th style="width: 18%;">Location</th>
+                        <th style="width: 12%;">Date Submitted</th>
+                        <th style="width: 8%; text-align: center;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="signup-rows">
+                    <!-- Javascript generated content -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Script Handling -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const authArea = document.getElementById('auth-area');
+            const dashboardArea = document.getElementById('dashboard-area');
+            const passcodeField = document.getElementById('passcode-input');
+            const loginBtn = document.getElementById('login-submit-btn');
+            const loginError = document.getElementById('login-error');
+
+            const totalStatVal = document.getElementById('stat-total');
+            const volunteerStatVal = document.getElementById('stat-volunteers');
+            const partnerStatVal = document.getElementById('stat-partners');
+            const financialStatVal = document.getElementById('stat-financial');
+
+            const rowsContainer = document.getElementById('signup-rows');
+            const searchField = document.getElementById('filter-search');
+            const roleField = document.getElementById('filter-role');
+
+            const exportBtn = document.getElementById('btn-export-excel');
+            const clearBtn = document.getElementById('btn-clear-all');
+
+            // --- Authentication Security ---
+            const CORRECT_PASSCODE = 'nativeground2026';
+
+            const attemptLogin = () => {
+                const enteredVal = passcodeField.value.trim();
+                if (enteredVal === CORRECT_PASSCODE) {
+                    // Auth success
+                    sessionStorage.setItem('ng_admin_authenticated', 'true');
+                    showDashboard();
+                } else {
+                    // Auth failure
+                    loginError.style.display = 'block';
+                    passcodeField.value = '';
+                    passcodeField.focus();
+                }
+            };
+
+            loginBtn.addEventListener('click', attemptLogin);
+            passcodeField.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    attemptLogin();
+                }
+            });
+
+            // Auto auth check
+            if (sessionStorage.getItem('ng_admin_authenticated') === 'true') {
+                showDashboard();
+            }
+
+            function showDashboard() {
+                authArea.style.display = 'none';
+                dashboardArea.style.display = 'block';
+                renderDashboard();
+            }
+
+            // --- Load and Render Data ---
+            let signupData = [];
+
+            function loadData() {
+                signupData = JSON.parse(localStorage.getItem('nativeground_signups') || '[]');
+                // Sort by date/id descending (newest first)
+                signupData.sort((a, b) => b.id - a.id);
+            }
+
+            function renderDashboard() {
+                loadData();
+                calculateStats();
+                applyFilters();
+            }
+
+            function calculateStats() {
+                totalStatVal.textContent = signupData.length;
+                volunteerStatVal.textContent = signupData.filter(d => d.role === 'Become a Volunteer').length;
+                partnerStatVal.textContent = signupData.filter(d => d.role === 'Partner with Native Ground').length;
+                financialStatVal.textContent = signupData.filter(d => d.role === 'Offer financial support').length;
+            }
+
+            function applyFilters() {
+                const searchVal = searchField.value.toLowerCase().trim();
+                const selectedRole = roleField.value;
+
+                const filtered = signupData.filter(d => {
+                    const matchesSearch = 
+                        !searchVal || 
+                        d.name.toLowerCase().includes(searchVal) ||
+                        d.email.toLowerCase().includes(searchVal) ||
+                        d.mobile.toLowerCase().includes(searchVal) ||
+                        d.city.toLowerCase().includes(searchVal) ||
+                        d.district.toLowerCase().includes(searchVal) ||
+                        d.state.toLowerCase().includes(searchVal) ||
+                        d.country.toLowerCase().includes(searchVal);
+
+                    const matchesRole = !selectedRole || d.role === selectedRole;
+
+                    return matchesSearch && matchesRole;
+                });
+
+                renderRows(filtered);
+            }
+
+            function renderRows(data) {
+                rowsContainer.innerHTML = '';
+                
+                if (data.length === 0) {
+                    rowsContainer.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="no-data">No signup entries found matching the filter parameters.</td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                data.forEach(item => {
+                    const tr = document.createElement('tr');
+                    
+                    let roleBadge = '';
+                    if (item.role === 'Become a Volunteer') {
+                        roleBadge = `<span class="badge badge-volunteer">Volunteer</span>`;
+                    } else if (item.role === 'Partner with Native Ground') {
+                        roleBadge = `<span class="badge badge-partner">Partner</span>`;
+                    } else {
+                        roleBadge = `<span class="badge badge-finance">Finance Support</span>`;
+                    }
+
+                    tr.innerHTML = `
+                        <td style="font-weight: 600; color: var(--white);">${escapeHTML(item.name)}</td>
+                        <td>${escapeHTML(item.mobile)}</td>
+                        <td><a href="mailto:${escapeHTML(item.email)}" style="color: var(--accent); text-decoration: none;">${escapeHTML(item.email)}</a></td>
+                        <td>${roleBadge}</td>
+                        <td>${escapeHTML(item.city)}, ${escapeHTML(item.district)}, ${escapeHTML(item.state)}, ${escapeHTML(item.country)}</td>
+                        <td style="font-size: 0.85rem; opacity: 0.75;">${escapeHTML(item.date)}</td>
+                        <td style="text-align: center;">
+                            <button class="btn-delete" data-id="${item.id}">Delete</button>
+                        </td>
+                    `;
+                    
+                    rowsContainer.appendChild(tr);
+                });
+
+                // Attach delete listeners
+                document.querySelectorAll('.btn-delete').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const targetId = parseInt(e.target.getAttribute('data-id'));
+                        if (confirm('Are you sure you want to delete this applicant record?')) {
+                            deleteRecord(targetId);
+                        }
+                    });
+                });
+            }
+
+            function deleteRecord(id) {
+                let localData = JSON.parse(localStorage.getItem('nativeground_signups') || '[]');
+                localData = localData.filter(d => d.id !== id);
+                localStorage.setItem('nativeground_signups', JSON.stringify(localData));
+                renderDashboard();
+            }
+
+            // --- Reset Database ---
+            clearBtn.addEventListener('click', () => {
+                if (confirm('CRITICAL WARNING: This will permanently wipe all local applicant signups from this browser. This action cannot be undone. Do you wish to proceed?')) {
+                    localStorage.removeItem('nativeground_signups');
+                    renderDashboard();
+                }
+            });
+
+            // --- Filters and Search Triggers ---
+            searchField.addEventListener('input', applyFilters);
+            roleField.addEventListener('change', applyFilters);
+
+            // --- Export to Excel (CSV) ---
+            exportBtn.addEventListener('click', () => {
+                if (signupData.length === 0) {
+                    alert('There is no applicant data available to export.');
+                    return;
+                }
+
+                // Construct CSV format
+                const headers = ['Submission Date', 'Full Name', 'Mobile Number', 'Email Address', 'Selected Role/Tier', 'Village/City', 'District', 'State', 'Country'];
+                const csvRows = [headers.join(',')];
+
+                signupData.forEach(item => {
+                    const row = [
+                        item.date,
+                        item.name,
+                        item.mobile,
+                        item.email,
+                        item.role,
+                        item.city,
+                        item.district,
+                        item.state,
+                        item.country
+                    ].map(val => `"${val.replace(/"/g, '""')}"`); // Escape quotes and wrap in quotes
+                    
+                    csvRows.push(row.join(','));
+                });
+
+                const csvContent = "data:text/csv;charset=utf-8,\uFEFF" + csvRows.join('\n');
+                const encodedUri = encodeURI(csvContent);
+                const downloadLink = document.createElement('a');
+                
+                downloadLink.setAttribute('href', encodedUri);
+                downloadLink.setAttribute('download', `Native_Ground_Community_Signups_${new Date().toISOString().slice(0,10)}.csv`);
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            });
+
+            function escapeHTML(str) {
+                if (!str) return '';
+                return str.replace(/&/g, '&amp;')
+                          .replace(/</g, '&lt;')
+                          .replace(/>/g, '&gt;')
+                          .replace(/"/g, '&quot;')
+                          .replace(/'/g, '&#039;');
+            }
+        });
+    </script>
+</body>
+</html>

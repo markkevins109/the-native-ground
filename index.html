@@ -87,7 +87,7 @@
                     
                     <div style="margin-bottom: 2rem;">
                         <h4 class="text-white" style="font-size: 1.1rem; margin-bottom: 0.5rem; letter-spacing: 1px; text-transform: uppercase;">Chemical-Free Cultivation</h4>
-                        <p style="font-size: 1rem; line-height: 1.7;">Native Ground has currently set aside 22 acres of cardamom plantation for completely chemical-free cultivation. The use of chemical pesticides and synthetic fertilizers has been initiated. .</p>
+                        <p style="font-size: 1rem; line-height: 1.7;">Native Ground has currently set aside 22 acres of cardamom plantation for completely chemical-free cultivation. The use of chemical pesticides and synthetic fertilizers has been discontinued.</p>
                     </div>
                     
                     <div style="margin-bottom: 2rem;">
@@ -843,14 +843,22 @@
                 </div>
             </div>
 
-            <div class="reveal" style="margin-top: 4rem; padding: 3rem; background: rgba(225, 193, 110, 0.05); border-radius: 4px; text-align: center; border-top: 1px solid rgba(255,215,0,0.1);">
-                <p class="font-serif font-italic" style="font-size: 1.25rem; color: rgba(255,255,255,0.9); line-height: 1.9; margin-bottom: 2rem;">
-                    Native Ground welcomes people from Kerala, Malayalees around the world, and all nature-sensitive individuals who believe that protecting biodiversity is protecting humanity itself.
+            <div class="reveal" style="margin-top: 4rem; padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 3.5rem); background: rgba(225, 193, 110, 0.04); border-radius: 6px; text-align: center; border: 1px solid rgba(225, 193, 110, 0.15); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px);">
+                <h3 class="serif text-accent" style="font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 2rem; letter-spacing: 1px;">Join the Native Ground Community</h3>
+                
+                <p style="font-size: 1.15rem; color: rgba(255,255,255,0.9); line-height: 1.9; max-width: 850px; margin: 0 auto 1.5rem; text-align: justify; text-align-last: center;">
+                    If you care about the future of nature and wish to make a meaningful difference, we invite you to join Native Ground as a Volunteer, Partner, or Sponsor.
                 </p>
-                <p style="font-size: 1.1rem; color: rgba(255,255,255,0.8); line-height: 1.8;">
-                    Those who would like to collaborate, volunteer, contribute ideas, or support Native Ground initiatives may kindly write to:<br>
-                    <a href="mailto:nativegrnd@gmail.com" style="color: var(--accent); text-decoration: none; font-weight: bold; font-size: 1.2rem; display: inline-block; margin-top: 0.5rem;">nativegrnd@gmail.com</a>
+                <p style="font-size: 1.15rem; color: rgba(255,255,255,0.9); line-height: 1.9; max-width: 850px; margin: 0 auto 1.5rem; text-align: justify; text-align-last: center;">
+                    Whether you can contribute your time, expertise, resources, technology, networks, or financial support, we will connect your contribution directly to genuine needs and opportunities where it can create the greatest impact. Our transparent approach allows you to see how your support is used and the positive change it delivers on the ground.
                 </p>
+                <p class="font-serif font-italic" style="font-size: 1.35rem; color: var(--accent); line-height: 1.9; max-width: 850px; margin: 0 auto 2.5rem;">
+                    Together, we can transform commitment into action and create lasting benefits for nature, communities, and future generations.
+                </p>
+                
+                <button id="open-join-form-btn" class="btn" style="padding: 1.4rem 3.5rem; font-size: 0.85rem; letter-spacing: 3px; font-weight: 700; box-shadow: 0 10px 30px rgba(217, 160, 91, 0.2); border-radius: 4px; transition: all 0.4s ease;">
+                    Join the Native Ground community
+                </button>
             </div>
         </div>
     </section>
@@ -890,6 +898,83 @@
             <p>Safeguarding the heritage of the Western Ghats.</p>
         </div>
     </footer>
+
+    <!-- Join Community Modal -->
+    <div id="join-community-modal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="modal-close-btn" id="close-modal-btn">&times;</button>
+            
+            <div class="modal-header">
+                <span class="section-tag" style="margin-bottom: 0.5rem; font-size: 0.75rem;">Get Involved</span>
+                <h3 class="serif text-accent" style="font-size: 2.2rem; line-height: 1.2; margin: 0 0 0.5rem 0;">Join Native Ground</h3>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.95rem; margin: 0; line-height: 1.5;">Fill out the form below to connect with us. Together, we can make a difference.</p>
+            </div>
+            
+            <form id="join-community-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-name">Name <span class="required">*</span></label>
+                        <input type="text" id="form-name" placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-mobile">Mob. No. <span class="required">*</span></label>
+                        <input type="tel" id="form-mobile" placeholder="e.g. +91 98765 43210" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="form-email">Email ID <span class="required">*</span></label>
+                        <input type="email" id="form-email" placeholder="Your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-role">I would like to: <span class="required">*</span></label>
+                        <select id="form-role" required>
+                            <option value="" disabled selected>Select a role...</option>
+                            <option value="Become a Volunteer">Become a Volunteer</option>
+                            <option value="Partner with Native Ground">Partner with Native Ground</option>
+                            <option value="Offer financial support">Offer financial support</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row-triple">
+                    <div class="form-group">
+                        <label for="form-city">Village / City <span class="required">*</span></label>
+                        <input type="text" id="form-city" placeholder="e.g. Wayanad" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-district">District <span class="required">*</span></label>
+                        <input type="text" id="form-district" placeholder="e.g. Wayanad" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="form-state">State <span class="required">*</span></label>
+                        <input type="text" id="form-state" placeholder="e.g. Kerala" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="form-country">Country <span class="required">*</span></label>
+                        <input type="text" id="form-country" placeholder="e.g. India" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-submit" style="width: 100%; margin-top: 1.5rem; padding: 1.2rem; font-weight: bold; border-radius: 4px;">
+                    Submit Application
+                </button>
+            </form>
+            
+            <div id="form-success-message" style="display: none; text-align: center; padding: 2rem 1rem;">
+                <div class="success-icon">&#10004;</div>
+                <h4 class="serif text-accent" style="font-size: 2rem; margin-top: 1rem; margin-bottom: 1rem;">Thank You!</h4>
+                <p style="color: var(--white); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">
+                    Your details have been successfully submitted. We will connect your contribution directly to genuine needs.
+                </p>
+                <button id="close-success-btn" class="btn btn-outline" style="padding: 0.8rem 2rem;">Close Window</button>
+            </div>
+        </div>
+    </div>
 
     <script type="module" src="script.js"></script>
 </body>
